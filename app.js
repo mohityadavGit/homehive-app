@@ -55,7 +55,7 @@ app.use(express.static(path.join(rootDir, "public")));
 app.use("/uploads", express.static(path.join(rootDir, "uploads")));
 app.use("/host/uploads", express.static(path.join(rootDir, "uploads")));
 app.use("/homes/uploads", express.static(path.join(rootDir, "uploads")));
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: true })); // Updated line
 
 // Session Store
 const store = new MongoDBStore({
