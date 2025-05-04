@@ -1,0 +1,9 @@
+
+# Ignore .env file (for security)
+.env
+
+# Ignore node_modules folder
+node_modules/
+
+# Ignore uploads folder (if not needed in repo)
+# uploads/

@@ -1,0 +1,59 @@
+<%- include('../partials/head') %>
+  </head>
+
+  <body>
+    <%- include('../partials/nav') %>
+      <main class="container mx-auto bg-white shadow-lg rounded-lg p-8 mt-10 max-w-6xl">
+        <h2 class="text-3xl text-red-500 font-bold text-center mb-6">
+          Your are in detail page
+        </h2>
+        <div
+          class="relative bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition duration-300 w-full max-w-sm mx-auto">
+          <!-- Image Section -->
+          <div class="relative w-full h-64">
+            <img
+              src="<%= home.photo ? home.photo : 'https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg?cs=srgb&dl=pexels-binyaminmellish-1396122.jpg&fm=jpg' %>"
+              alt="<%= home.houseName %>" class="w-full h-full object-cover">
+
+            <!-- Favorite Button -->
+            <button class="absolute top-4 right-4 bg-white p-2 rounded-full shadow-md hover:bg-gray-100 transition">
+              <i class="fas fa-heart text-gray-400 hover:text-red-500"></i>
+            </button>
+          </div>
+
+          <!-- Details Section -->
+          <div class="p-4">
+            <div class="flex justify-between">
+              <h3 class="text-lg font-semibold text-gray-900 truncate">
+                <%= home.houseName %>
+              </h3>
+              <!-- Rating -->
+              <div class="flex items-center text-sm">
+                <i class="fas fa-star text-yellow-400"></i>
+                <span class="ml-1 text-gray-700">
+                  <%= home.rating %>
+                </span>
+              </div>
+            </div>
+
+            <p class="text-gray-500 text-sm flex items-center mt-1">
+              <i class="fas fa-map-marker-alt text-red-500 mr-1"></i>
+              <%= home.location %>
+            </p>
+
+            <!-- Price & Booking -->
+            <div class="flex justify-between items-center mt-2">
+              <span class="text-lg font-bold text-gray-900">Rs <%= home.price %> / night</span>
+              <button
+                class="bg-red-500 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-red-600 transition">
+                Book Now
+              </button>
+            </div>
+          </div>
+        </div>
+
+
+      </main>
+  </body>
+
+  </html>
