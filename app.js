@@ -7,7 +7,7 @@ const path = require("path");
 // External Modules
 const express = require("express");
 const session = require("express-session");
-const { mongoose } = require("mongoose");
+const mongoose = require("mongoose");
 const MongoDBStore = require("connect-mongodb-session")(session);
 const multer = require("multer");
 
@@ -53,9 +53,9 @@ app.set("view engine", "ejs");
 app.set("views", "views");
 app.use(express.static(path.join(rootDir, "public")));
 app.use("/uploads", express.static(path.join(rootDir, "uploads")));
-app.use("/host/uploads", express.static(path.join(rootDir, "uploads")));
+app.use("/host/uploads", express.static(path.join(rootDir, "uploads"))); // Ensure this is the right path for your host images
 app.use("/homes/uploads", express.static(path.join(rootDir, "uploads")));
-app.use(express.urlencoded({ extended: true })); // Updated line
+app.use(express.urlencoded({ extended: true }));
 
 // Session Store
 const store = new MongoDBStore({
