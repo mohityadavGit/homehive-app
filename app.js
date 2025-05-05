@@ -55,7 +55,7 @@ app.use(express.static(path.join(rootDir, "public")));
 app.use("/uploads", express.static(path.join(rootDir, "uploads")));
 app.use("/host/uploads", express.static(path.join(rootDir, "uploads")));
 app.use("/homes/uploads", express.static(path.join(rootDir, "uploads")));
-app.use(express.urlencoded({ extended: true })); // Updated line
+app.use(express.urlencoded({ extended: true }));
 
 // Session Store
 const store = new MongoDBStore({
@@ -78,6 +78,11 @@ app.use((req, res, next) => {
   console.log("ye hai hamari Cookie", req.get("cookie"));
   req.isLoggedIn = req.session.isLoggedIn;
   next();
+});
+
+// ✅ Root Route (Required by Railway)
+app.get("/", (req, res) => {
+  res.send("✅ HomeHive is running!");
 });
 
 // Route Middleware
