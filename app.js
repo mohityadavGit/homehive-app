@@ -55,7 +55,7 @@ app.use(express.static(path.join(rootDir, "public")));
 app.use("/uploads", express.static(path.join(rootDir, "uploads")));
 app.use("/host/uploads", express.static(path.join(rootDir, "uploads")));
 app.use("/homes/uploads", express.static(path.join(rootDir, "uploads")));
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true })); // Updated line
 
 // Session Store
 const store = new MongoDBStore({
@@ -80,11 +80,6 @@ app.use((req, res, next) => {
   next();
 });
 
-// ✅ Root Route (Required by Railway)
-app.get("/", (req, res) => {
-  res.send("✅ HomeHive is running!");
-});
-
 // Route Middleware
 app.use(authRouter);
 app.use(storeRouter);
@@ -103,9 +98,9 @@ const PORT = process.env.PORT || 3000;
 mongoose
   .connect(MONGO_URL)
   .then(() => {
-    app.listen(PORT, "0.0.0.0", () => {
+    app.listen(PORT, () => {
       console.log("Cookies and Sessions");
-      console.log(`Server running on http://0.0.0.0:${PORT}`);
+      console.log(`Server running on address http://localhost:${PORT}`);
     });
   })
   .catch((err) => {
