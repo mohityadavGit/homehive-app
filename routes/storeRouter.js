@@ -8,6 +8,12 @@ const homesController = require("../controllers/storeController");
 storeRouter.get("/", homesController.getIndex);
 storeRouter.get("/homes", homesController.getHomes);
 storeRouter.get("/bookings", homesController.getBookings);
+storeRouter.post("/bookings", homesController.postAddToBooking);
+storeRouter.post(
+  "/bookings/remove/:homeId",
+  homesController.postRemoveFromBooking
+);
+
 storeRouter.get("/favourites", homesController.getFavouriteList);
 storeRouter.get("/homes/:_id", homesController.getHomeDetails);
 storeRouter.post("/favourites", homesController.postAddToFavourite);

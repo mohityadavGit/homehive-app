@@ -44,10 +44,8 @@
             <!-- Price & Booking -->
             <div class="flex justify-between items-center mt-2">
               <span class="text-lg font-bold text-gray-900">Rs <%= home.price %> / night</span>
-              <button
-                class="bg-red-500 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-red-600 transition">
-                Book Now
-              </button>
+              <!-- Book Now Button -->
+              <%- include('../partials/bookings', { home: home }) %>
             </div>
           </div>
         </div>

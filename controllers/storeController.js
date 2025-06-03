@@ -56,13 +56,60 @@ exports.getFavouriteList = async (req, res, next) => {
 };
 
 // 📚 Bookings page
-exports.getBookings = (req, res, next) => {
-  res.render("store/bookings", {
-    pageTitle: "My Bookings",
-    currentPage: "bookings",
-    isLoggedIn: req.isLoggedIn,
-    user: req.session.user,
-  });
+exports.getBookings = async (req, res, next) => {
+  try {
+    const userId = req.session.user._id;
+    const user = await User.findById(userId).populate("bookings"); // bookings should be an array of home IDs
+
+    res.render("store/bookings", {
+      pageTitle: "My Bookings",
+      currentPage: "bookings",
+      isLoggedIn: req.isLoggedIn,
+      user: req.session.user,
+      bookedHomes: user.bookings, // pass this to EJS
+    });
+  } catch (err) {
+    console.error("Error loading bookings:", err);
+    res.redirect("/");
+  }
+};
+
+// 📖 Add to bookings
+exports.postAddToBooking = async (req, res, next) => {
+  const homeId = req.body.houseid;
+  const userId = req.session.user._id;
+
+  try {
+    const user = await User.findById(userId);
+
+    // Avoid duplicate bookings
+    if (!user.bookings.includes(homeId)) {
+      user.bookings.push(homeId);
+      await user.save();
+    }
+
+    res.redirect("/bookings");
+  } catch (err) {
+    console.error("Error adding to bookings:", err);
+    res.redirect("/homes");
+  }
+};
+//remove from bookigs
+exports.postRemoveFromBooking = async (req, res) => {
+  try {
+    const userId = req.session.user._id;
+    const homeId = req.params.homeId;
+
+    // Remove the home from bookings
+    await User.findByIdAndUpdate(userId, {
+      $pull: { bookings: homeId },
+    });
+
+    res.redirect("/bookings");
+  } catch (err) {
+    console.error("Error removing booking:", err);
+    res.redirect("/bookings");
+  }
 };
 
 // ❤️ Add to favourites
@@ -76,6 +123,7 @@ exports.postAddToFavourite = async (req, res, next) => {
     if (!user.favourites.includes(homeId)) {
       user.favourites.push(homeId);
       await user.save();
+      CLS;
     }
     res.redirect("/favourites");
   } catch (err) {

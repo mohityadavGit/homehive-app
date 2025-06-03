@@ -1,3 +1,4 @@
+// models/user.js
 const mongoose = require("mongoose");
 
 const userSchema = mongoose.Schema({
@@ -21,6 +22,13 @@ const userSchema = mongoose.Schema({
     default: "guest",
   },
   favourites: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Home",
+    },
+  ],
+  bookings: [
+    // ✅ NEW FIELD
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Home",
